@@ -7,7 +7,8 @@ Setar um registro com um determinado id.
 $.storage({id : 'nome', value: 'Um nome qualquer'});
 
 Setar um resgitro com um ID automático.
-$.storage({valor: 'Uma string qualquer'})
+$.storage({valor: 'Uma string qualquer'});
+
 Pegar algum determinado ID
 $.storage({get : 'ID'});
 
