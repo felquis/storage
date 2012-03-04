@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8">
+		<title>LocalStorage plugin jQuery - DEMO 2</title>
+	</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script src="storage.min.js"></script>
+<script>
+$(document).ready(function(){
+
+ //um array de objetos
+var Cidades = [
+	{ nome : 'Londrina', 	   uf : 'PR'}
+   ,{ nome : 'Jandaia do Sul', uf : 'PR'}
+   ,{ nome : 'Sapranca',   uf : 'zz'}
+   ,{ nome : 'standcity', 	 uf : 'zz'}
+]
+
+// limpados todos os registros no localStorage
+	$.storage('clear');
+	
+// setamos o nosso objeto ao localStorage
+	$.storage({id : 'Cidades', value : Cidades});
+	
+// retornamos os nomes que foram setados
+  get = $.storage({get : "Cidades"});
+  
+//preparamos para por na tela  
+  html = '';
+	$.each(get, function(a, b){
+		html += b.nome + '<br />';
+	});
+
+// e colocamos os nomes na tela
+	$('body').html(html);
+});
+</script>
+</body>
+</html>
