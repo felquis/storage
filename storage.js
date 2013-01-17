@@ -3,107 +3,111 @@ var JSON;if(!JSON){JSON={}}(function(){function str(a,b){var c,d,e,f,g=gap,h,i=b
 
 /* $.storage() */
 $.storage = function(opt){
-			// setup //
-			obj = {
-				get : '',
-				value : '',
-				id : ''
+	// setup //
+	obj = {
+		get : '',
+		value : '',
+		id : ''
+	}
+
+	var local = localStorage;
+
+	$api = $.extend(obj, opt);
+
+	/*
+	 * Essas funções são responsaveis por setar dados e pegar dados
+	 */
+
+	// Seta um localStorage que o programador definiu um ID
+	function newid($id, $valor){
+
+		$valor = JSON.stringify($valor);
+
+		local.setItem($id, $valor);
+	}
+
+	// Seta um localStorage em que o programador NÃO definiu um ID - ID automático
+	function newvalor($valor){
+
+		$valor = JSON.stringify($valor);
+
+		var nome = local.length + 1;
+
+		local.setItem(nome, $valor);
+	}
+
+	// Pega um localStorage pelo seu KEY ou sejá pelo seu identificador no Array de Dados do localStorage
+	function getkey(key){
+
+		var num = local.key(key);
+		$valor = local.getItem(num);
+
+		$valor = JSON.parse($valor);
+
+		return $valor;
+	}
+
+	// Pega um localStorage pelo seu nome/ID indicado pelo programador na hora de seta-lo
+	function getID(name){
+		var item, item2;
+
+		item = local.getItem(name);
+
+		item2 = JSON.parse(item);
+
+		return item2;
+	}
+
+	/*
+	 * Esses IF's avaliam o que foi passado como parâmetro no $.storage
+	 * e define qual tarefa será realizada
+	 */
+
+	// Pegar valores
+	 if($api.get != ''){
+		if($.type( $api.get ) === 'number'){
+			$retorno = getkey($api.get);
+			return $retorno;
+		}else{
+			$retorno = getID($api.get);
+			return $retorno;
+		}
+	 }
+
+	// Setar/Salvar valores
+	if($api.value != ''){
+		if($api.id != ''){
+			newid($api.id, $api.value);
+		}else{
+			newvalor($api.value);
+		}
+	}
+
+	// Retorna um Array de todo o localStorage
+	if(opt == null){
+		$total = local.length;
+		$retorno = [];
+		 if($total == 0){
+			 $retorno[0] = "Não a dados gravados.";
+			 return $retorno;
+		 }else{
+			$i = 0;
+
+			while($i < $total){
+				$retorno[$i] = getkey($i);
+				$i++;
 			}
-			var local = localStorage;
-			$api = $.extend(obj, opt);
+			return $retorno;
+		}
+	}
 
-			/*
-			 * Essas funções são responsaveis por setar dados e pegar dados
-			 * #1 seta um localStorage que o programador definiu um ID
-			 * #2 seta um localStorage em que o programador NÃO definiu um ID - ID automático
-			 * #3 pega um localStorage pelo seu KEY ou sejá pelo seu identificador no Array de Dados do localStorage
-			 * #4 pega um localStorage pelo seu nome/ID indicado pelo programador na hora de seta-lo
-			 */
-				// #1
-				function newid($id, $valor){
-				// transforma JSON em string
-					$valor = JSON.stringify($valor);
-				// registra no localStorage
-					local.setItem($id, $valor);
-				}
-				// #2
-				function newvalor($valor){
-				// tranforma JSON em string
-					$valor = JSON.stringify($valor);
-				// escolhe o nome do registro
-					var nome = local.length + 1;
-				// registra
-					local.setItem(nome, $valor);
-				}
-				// #3
-				function getkey(key){
-				// pega O nome e da um GET no ID
-					var num = local.key(key);
-					$valor = local.getItem(num);
-				// tranforma em JSON
-					$valor = JSON.parse($valor);
-				// retorna o valor
-					return $valor;
-				}
-				// #4
-				function getID(name){
-				var item, item2;
-				//pega o valor
-					item = local.getItem(name);
-				// tranforma o valor em JSON
-					item2 = JSON.parse(item);
-				// retorna o valor
-					return item2;
-				}
-			/*
-			 * Esses IF's avaliam o que foi passado como parâmetro na hora que programador chamou o método $.storage
-			 * e defini o que vai ocorrer para cada tipo de propriedade passo
-			 * Para cada expressão abaixo é usado as funções criadas acima
-			 * #1 pega valores
-			 * #2 seta valores
-			 * #3 retorna um Array de todo o localStorage
-			 */
-			// #1
-			 if($api.get != ''){
-				if($.type( $api.get ) === 'number'){
-					$retorno = getkey($api.get);
-					return $retorno;
-				}else{
-					$retorno = getID($api.get);
-					return $retorno;
-				}
-			 }
-			// #2
-				if($api.value != ''){
-					if($api.id != ''){
-						newid($api.id, $api.value);
-					}else{
-						newvalor($api.value);
-					}
-				}
-			// #3
-				if(opt == null){
-					$total = local.length;
-					$retorno = [];
-					 if($total == 0){
-						 $retorno[0] = "Não a dados gravados.";
-						 return $retorno;
-					 }else{
-						$i = 0;
+	// Limpar todo o localStorage
+	if(opt == 'clear'){
+		local.clear();
+	}
 
-						while($i < $total){
-							$retorno[$i] = getkey($i);
-							$i++;
-						}
-						return $retorno;
-					}
-				}
-			// #4
-				if(opt == 'clear'){
-					local.clear();
-				}
-			// #5
-				if($api.remove != ''){
-					local.removeItem($api.remove);
-				}
-			}// fim
+	//
+	if($api.remove != ''){
+		local.removeItem($api.remove);
+	}
+}
