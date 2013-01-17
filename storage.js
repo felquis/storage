@@ -11,7 +11,7 @@ $.storage = function(opt){
 			}
 			var local = localStorage;
 			$api = $.extend(obj, opt);
-		
+
 			/*
 			 * Essas funções são responsaveis por setar dados e pegar dados
 			 * #1 seta um localStorage que o programador definiu um ID
@@ -32,7 +32,7 @@ $.storage = function(opt){
 					$valor = JSON.stringify($valor);
 				// escolhe o nome do registro
 					var nome = local.length + 1;
-				// registra 
+				// registra
 					local.setItem(nome, $valor);
 				}
 				// #3
@@ -90,7 +90,7 @@ $.storage = function(opt){
 						 return $retorno;
 					 }else{
 						$i = 0;
-						
+
 						while($i < $total){
 							$retorno[$i] = getkey($i);
 							$i++;
@@ -98,7 +98,7 @@ $.storage = function(opt){
 						return $retorno;
 					}
 				}
-			// #4 
+			// #4
 				if(opt == 'clear'){
 					local.clear();
 				}
