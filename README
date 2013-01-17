@@ -1,19 +1,32 @@
-O que o plugin faz?
+# O que o plugin faz?
 Este plugin serve para facilitar o uso do localStorage do HTML5,
-Com este plugin você pode armazenar JSON sem nenhum problema.
+Com este plugin você pode armazenar JSON sem nenhum dificuldade.
 
-Modo de usar.
+## Como usar
 Setar um registro com um determinado id.
 $.storage({id : 'nome', value: 'Um nome qualquer'});
 
 Setar um resgitro com um ID automático.
+```js
 $.storage({valor: 'Uma string qualquer'});
+```
 
 Pegar algum determinado ID
+```js
 $.storage({get : 'ID'});
+```
 
 limpando todo o localStorage
+```js
 $.storage('clear');
+```
 
 Removendo um determinado registro
+```js
 $.storage({remove : 'ID'});
+```
+
+## Licensa
+Use isso em tudo o que você achar necessário, só não retire o link para o repositório que esta no source.
+
+=D
