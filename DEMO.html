@@ -8,27 +8,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script src="storage.min.js"></script>
 <script>
-$(document).ready(function(){
+$(function () {
 
- //um array de objetos
-var obj = [
-	{ nome : 'Elvis', cidade : 'feladc'}
-   ,{ nome : 'Ofelquis', cidade : 'gefut'}
-   ,{ nome : 'Rennan', cidade : 'logut'}
-   ,{ nome : 'Bia', cidade : 'yogutkf'}
-]
+	// Um array com dados
+	var dados = [
+		{ nome : 'Elvis', cidade : 'feladc'},
+	   	{ nome : 'Ofelquis', cidade : 'gefut'},
+	   	{ nome : 'Rennan', cidade : 'logut'},
+	   	{ nome : 'Bia', cidade : 'yogutkf'}
+	]
 
-// limpados todos os registros no localStorage
-	$.storage('clear');
+	// setamos o nosso objeto ao localStorage
+	$.storage('nomes', dados);
 
-// setamos o nosso objeto ao localStorage
-	$.storage({id : 'nomes', value : obj});
+	// retornamos os nomes que foram setados
+  	get = $.storage('nomes');
 
-// retornamos os nomes que foram setados
-  get = $.storage({get : "nomes"});
+	//preparamos para por na tela
+  	html = '';
 
-//preparamos para por na tela
-  html = '';
 	$.each(get, function(a, b){
 		html += b.nome + '<br />';
 	});
