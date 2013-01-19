@@ -20,14 +20,14 @@ var Cidades = [
 
 // limpados todos os registros no localStorage
 	$.storage('clear');
-	
+
 // setamos o nosso objeto ao localStorage
 	$.storage({id : 'Cidades', value : Cidades});
-	
+
 // retornamos os nomes que foram setados
   get = $.storage({get : "Cidades"});
-  
-//preparamos para por na tela  
+
+//preparamos para por na tela
   html = '';
 	$.each(get, function(a, b){
 		html += b.nome + '<br />';
