@@ -1,32 +1,45 @@
 # O que o plugin faz?
-Este plugin serve para facilitar o uso do localStorage do HTML5,
-Com este plugin você pode armazenar JSON sem nenhum dificuldade.
+Este plugin serve para facilitar o uso do [WebStorage](http://caniuse.com/#search=webstorage) do HTML5,
 
-## Como usar
-Setar um registro com um determinado id.
-$.storage({id : 'nome', value: 'Um nome qualquer'});
+A API do WebStorage é relativamente simples de usar, o problema é que você provavelmente vai querer salvar dados no formato `JSON` e o WebStorage não faz isso, ele salva apenas dados no formato `String`.
 
-Setar um resgitro com um ID automático.
+Resumindo, este plugin oferece uma interface simples para que você salve dados também no formato `JSON`.
+
+# Como usar
+
+### Para salvar novos dados
+Basta usar chave, valor.
 ```js
-$.storage({valor: 'Uma string qualquer'});
+$.storage('chave', 'valor');
+```
+O valor pode ser um JSON sem problema algum.
+A chave, é um identificador, e deve ser único, caso você use uma chave que já existe, os dados serão sobrescritos.
+
+### Pegar alguma determinada chave
+```js
+$.storage('chave');
 ```
 
-Pegar algum determinado ID
-```js
-$.storage({get : 'ID'});
-```
-
-limpando todo o localStorage
+#### limpando todo o localStorage
 ```js
 $.storage('clear');
 ```
 
-Removendo um determinado registro
+### Removendo um determinado registro
 ```js
-$.storage({remove : 'ID'});
+$.storage('remove', 'chave');
 ```
 
-## Licensa
+### Palavras reservadas
+Palavras reservadas, são palavras que você não pode usar como chave, no caso deste plugin, as palavras reservadas são:
+* clear: Usado para limpar todo o localStorage.
+* remove: Usado para remover uma determinada chave.
+
+Caso você tente usar algumas dessas palavras como chaves, tanto o clear quanto o remove, irão executar suas tarefas de apagar dados.
+
+E por enquanto é só, pretendo no futuro deixar apenas uma palavra reservada.
+
+# Licensa
 Use isso em tudo o que você achar necessário, só não retire o link para o repositório que esta no source.
 
 =D
